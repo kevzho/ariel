@@ -1,0 +1,4 @@
+{
+ "ins-reshape": {"workers": 30, "seed": 0, "teach_steps": 5000000},
+ "ins-locked": {"workers": 30, "seed": 0, "env": {"lock_telescoping": true}}
+}

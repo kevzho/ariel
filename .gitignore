@@ -16,7 +16,6 @@ dist/
 /runs/
 /recordings/
 /checkpoints/
-/docs/
 /depreciated-artifacts/
 /archive
 .vscode/

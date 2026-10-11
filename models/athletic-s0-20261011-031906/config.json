@@ -1,0 +1,90 @@
+{
+ "run_id": "athletic-s0-20261011-031906",
+ "out_root": "/runs",
+ "env": {
+  "speed_base": 2.0,
+  "speed_span": 1.4,
+  "fissure_width": [
+   0.8,
+   1.1
+  ],
+  "fissure_gap": 8.0,
+  "fissure_runup": 5.0,
+  "block_offset": 0.2,
+  "scarp_height": [
+   1.4,
+   1.6
+  ],
+  "ramp_linear": true,
+  "ramp_rocks": 16,
+  "short_shape": {
+   "thigh": 0.7,
+   "torso": 0.8,
+   "upper_arm": 0.7,
+   "forearm": 0.7
+  },
+  "block_start": 4.6,
+  "block_spacing": 5.0,
+  "steer_floor": 0.3,
+  "block_lead": 4.4,
+  "block_pace": -0.4,
+  "spawn_weights": [
+   0.35,
+   0.1,
+   0.15,
+   0.15,
+   0.25
+  ],
+  "stop_task": true,
+  "goal_gap": 10.0,
+  "brake_dist": 8.0,
+  "brake_gain": 0.2,
+  "stop_runup": 6.5,
+  "brake_fade": false,
+  "w_brake": 0.5,
+  "rough": 0.2,
+  "plateau_height": true
+ },
+ "workers": 60,
+ "envs_per_worker": 6,
+ "horizon": 64,
+ "total_steps": 500000000,
+ "hours": 4.6,
+ "lr": 0.0003,
+ "gamma": 0.99,
+ "lam": 0.95,
+ "clip": 0.2,
+ "epochs": 5,
+ "minibatches": 8,
+ "entropy": 0.0,
+ "value_coef": 1.0,
+ "max_grad_norm": 1.0,
+ "target_kl": 0.02,
+ "std_command": 0.3,
+ "std_tele": 0.3,
+ "std_dz": 0.2,
+ "std_dq": 0.2,
+ "hidden": [
+  512,
+  256,
+  128
+ ],
+ "checkpoint_every": 50,
+ "curriculum": true,
+ "start_level": 0.0,
+ "curriculum_step": 0.2,
+ "curriculum_steps": {
+  "scarp": 0.05
+ },
+ "curriculum_floor": 0.35,
+ "curriculum_min_attempts": 200,
+ "curriculum_threshold": 0.6,
+ "teach_steps": 20000000,
+ "teach_floor": 0.0,
+ "seed": 0,
+ "log_every": 5,
+ "resume": true,
+ "init_from": "",
+ "worker_timeout_s": 900.0,
+ "learner_threads": 8
+}

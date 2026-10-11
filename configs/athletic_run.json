@@ -1,0 +1,5 @@
+{
+ "athletic-s0": {"xl": true, "workers": 60, "seed": 0, "teach_steps": 20000000,
+                 "env": {"speed_base": 2.0, "speed_span": 1.4, "fissure_width": [0.8, 1.1],
+                         "fissure_gap": 8.0, "fissure_runup": 5.0}}
+}

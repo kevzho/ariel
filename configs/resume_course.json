@@ -1,0 +1,8 @@
+{
+ "reshape-s0-20261011-030959": {"xl": true, "workers": 60, "seed": 0, "teach_steps": 20000000},
+ "locked-s0-20261011-030959": {"xl": true, "workers": 60, "seed": 0, "teach_steps": 20000000, "env": {"lock_telescoping": true}},
+ "reshape-s1-20261011-030933": {"workers": 30, "seed": 1, "teach_steps": 10000000},
+ "athletic-s0-20261011-031906": {"xl": true, "workers": 60, "seed": 0, "teach_steps": 20000000,
+                 "env": {"speed_base": 2.0, "speed_span": 1.4, "fissure_width": [0.8, 1.1],
+                         "fissure_gap": 8.0, "fissure_runup": 5.0}}
+}

@@ -1,0 +1,4 @@
+{
+ "reshape-s0": {"xl": true, "workers": 60, "seed": 0, "teach_steps": 20000000},
+ "locked-s0": {"xl": true, "workers": 60, "seed": 0, "teach_steps": 20000000, "env": {"lock_telescoping": true}}
+}

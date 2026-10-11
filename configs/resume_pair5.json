@@ -1,0 +1,57 @@
+{
+ "reshape-s0-20261011-030959": {
+  "xl": true,
+  "workers": 60,
+  "seed": 0,
+  "teach_steps": 20000000,
+  "env": {
+   "block_offset": 0.2,
+   "scarp_height": [
+    1.4,
+    1.6
+   ],
+   "ramp_linear": true,
+   "ramp_rocks": 16,
+   "short_shape": {
+    "thigh": 0.7,
+    "torso": 0.8,
+    "upper_arm": 0.7,
+    "forearm": 0.7
+   },
+   "block_start": 4.6,
+   "block_spacing": 5.0,
+   "low_clearance": 1.7,
+   "fissure_width": [
+    0.65,
+    0.8
+   ]
+  },
+  "curriculum_floor": 0.35,
+  "curriculum_min_attempts": 200
+ },
+ "locked-s0-20261011-030959": {
+  "xl": true,
+  "workers": 60,
+  "seed": 0,
+  "teach_steps": 20000000,
+  "env": {
+   "lock_telescoping": true,
+   "block_offset": 0.2,
+   "scarp_height": [
+    1.4,
+    1.6
+   ],
+   "ramp_linear": true,
+   "ramp_rocks": 16,
+   "block_start": 4.6,
+   "block_spacing": 5.0,
+   "low_clearance": 1.7,
+   "fissure_width": [
+    0.65,
+    0.8
+   ]
+  },
+  "curriculum_floor": 0.35,
+  "curriculum_min_attempts": 200
+ }
+}

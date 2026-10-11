@@ -1,0 +1,14 @@
+{
+ "reshape-s0-20261011-030959": {"xl": true, "workers": 60, "seed": 0, "teach_steps": 20000000,
+   "env": {"block_offset": 0.2, "scarp_height": [1.4, 1.6], "ramp_linear": true, "ramp_rocks": 16,
+           "short_shape": {"thigh": 0.7, "torso": 0.8, "upper_arm": 0.7, "forearm": 0.7}}},
+ "locked-s0-20261011-030959": {"xl": true, "workers": 60, "seed": 0, "teach_steps": 20000000,
+   "env": {"lock_telescoping": true, "block_offset": 0.2, "scarp_height": [1.4, 1.6], "ramp_linear": true, "ramp_rocks": 16}},
+ "reshape-s1-20261011-030933": {"workers": 30, "seed": 1, "teach_steps": 10000000,
+   "env": {"block_offset": 0.2, "scarp_height": [1.4, 1.6], "ramp_linear": true, "ramp_rocks": 16,
+           "short_shape": {"thigh": 0.7, "torso": 0.8, "upper_arm": 0.7, "forearm": 0.7}}},
+ "athletic-s0-20261011-031906": {"xl": true, "workers": 60, "seed": 0, "teach_steps": 20000000,
+   "env": {"speed_base": 2.0, "speed_span": 1.4, "fissure_width": [0.8, 1.1], "fissure_gap": 8.0, "fissure_runup": 5.0,
+           "block_offset": 0.2, "scarp_height": [1.4, 1.6], "ramp_linear": true, "ramp_rocks": 16,
+           "short_shape": {"thigh": 0.7, "torso": 0.8, "upper_arm": 0.7, "forearm": 0.7}}}
+}

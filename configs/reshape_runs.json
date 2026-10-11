@@ -1,0 +1,7 @@
+{
+ "reshape-s0": {"xl": true, "workers": 60, "seed": 0, "teach_steps": 20000000},
+ "reshape-s1": {"workers": 30, "seed": 1, "teach_steps": 10000000},
+ "locked-s0": {"xl": true, "workers": 60, "seed": 0, "teach_steps": 20000000, "env": {"lock_telescoping": true}},
+ "shapegym-s0": {"workers": 30, "seed": 0, "curriculum_step": 0.1,
+                 "env": {"mode": "flat", "ranges": {"thigh": [0.5, 1.4], "shin": [0.7, 1.6]}}}
+}
