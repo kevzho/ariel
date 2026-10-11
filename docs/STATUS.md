@@ -140,7 +140,7 @@ task, solar panels removed from the route, body-height fix beyond the slope). Ea
 the episodes in progress; the exact history is in each run's `train_log.jsonl` (`resumed` events)
 and `config.json`. Final checkpoints, configs and logs are in [`models/`](../models/README.md).
 
-Every training episode is recorded on the Modal volume `ascent-runs` under `<run>/episodes/`
+Every training episode is recorded on the Modal volume `ariel-runs` under `<run>/episodes/`
 (state every second control step, every action, reward term and policy version); for example
 `reshape-s1` had 107,703 recorded episodes and 19.9M recorded steps at 06:50.
 `runs/progression-reshape-s1-20261011-030933/` holds five clips, one typical attempt from each

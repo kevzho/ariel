@@ -7,7 +7,7 @@ are recorded the same way and labelled `origin: checkpoint_evaluation`.
 Implementation: [`src/ascent/record/recorder.py`](../src/ascent/record/recorder.py).
 Audit: `uv run modal run infra/modal_app.py::audit --run-id <run>` (Modal profile `tejas-16842`).
 
-## Layout (Modal volume `ascent-runs`)
+## Layout (Modal volume `ariel-runs`)
 
 ```
 /<run_id>/

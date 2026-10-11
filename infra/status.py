@@ -1,4 +1,4 @@
-"""Print the latest training-log row of each run on the ``ascent-runs`` volume.
+"""Print the latest training-log row of each run on the ``ariel-runs`` volume.
 
     uv run python infra/status.py reshape-s0-20261011-030959 locked-s0-20261011-030959
 """
@@ -17,7 +17,7 @@ def main(run_ids):
     env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
     for run in run_ids:
         tmp = os.path.join(tempfile.gettempdir(), f"status_{run}.jsonl")
-        r = subprocess.run(["modal", "volume", "get", "--force", "ascent-runs", f"{run}/train_log.jsonl", tmp],
+        r = subprocess.run(["modal", "volume", "get", "--force", "ariel-runs", f"{run}/train_log.jsonl", tmp],
                            capture_output=True, text=True, env=env)
         if r.returncode != 0 or not os.path.exists(tmp):
             print(f"{run}: no log yet ({(r.stderr or r.stdout).strip()[-120:]})")

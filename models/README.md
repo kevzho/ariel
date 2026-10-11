@@ -1,6 +1,6 @@
 # Checkpoints
 
-Policies of the learned layer (PyTorch, CPU), copied from the Modal volume `ascent-runs` on
+Policies of the learned layer (PyTorch, CPU), copied from the Modal volume `ariel-runs` on
 October 11, 2026 at 07:43 EDT, after all runs were stopped.
 The folder is the training run behind the submission video and holds its checkpoints, the
 run's `config.json` and its `train_log.jsonl`. The pretrained MoCapAct models are not here; the Modal image downloads them.

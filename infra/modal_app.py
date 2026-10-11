@@ -5,7 +5,7 @@ Launch from the repository root (Guhan's workspace, profile tejas-16842):
     uv run modal run infra/modal_app.py::body_check_job
     uv run modal run infra/modal_app.py::body_check_job --renderer cpu
 
-Outputs land in the ``ascent-runs`` volume and are also copied to ``runs/<run_id>/``
+Outputs land in the ``ariel-runs`` volume and are also copied to ``runs/<run_id>/``
 locally (ignored by Git).
 """
 
@@ -55,7 +55,7 @@ blender_image = (
 )
 
 app = modal.App("ascent")
-runs = modal.Volume.from_name("ascent-runs", create_if_missing=True)
+runs = modal.Volume.from_name("ariel-runs", create_if_missing=True)
 RUNS = Path("/runs")
 
 
@@ -799,7 +799,7 @@ def compare(run_id: str, picks: int = 3, render: bool = True):
     """Evaluate early / middle / late checkpoints of a run on the showcase and held-out courses."""
     import subprocess
 
-    names = subprocess.run(["modal", "volume", "ls", "ascent-runs", f"{run_id}/checkpoints"],
+    names = subprocess.run(["modal", "volume", "ls", "ariel-runs", f"{run_id}/checkpoints"],
                            capture_output=True, text=True).stdout.split()
     ckpts = sorted({n.split("/")[-1] for n in names if n.endswith(".pt")})
     chosen = [ckpts[int(round(i * (len(ckpts) - 1) / max(picks - 1, 1)))] for i in range(picks)] if ckpts else []
@@ -815,7 +815,7 @@ def compare(run_id: str, picks: int = 3, render: bool = True):
         tmp.mkdir(parents=True, exist_ok=True)
         for ck in chosen:
             local_trace = tmp / f"{ck.replace('.pt', '')}_showcase_trace.npz"
-            tr = subprocess.run(["modal", "volume", "get", "--force", "ascent-runs",
+            tr = subprocess.run(["modal", "volume", "get", "--force", "ariel-runs",
                                  f"{run_id}/evaluations/{ck.replace('.pt', '')}/course0_trace.npz", str(local_trace)],
                                 capture_output=True)
             if tr.returncode == 0 and local_trace.exists():

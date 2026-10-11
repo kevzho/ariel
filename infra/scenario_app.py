@@ -43,7 +43,7 @@ mocapact_image = (
 image = mocapact_image.add_local_python_source("ascent")
 
 app = modal.App("ascent-scenarios")
-runs = modal.Volume.from_name("ascent-runs")
+runs = modal.Volume.from_name("ariel-runs")
 RUNS = Path("/runs")
 
 ELEMENTS = {"C": "crates", "D": "deck", "F": "fissure", "S": "slope"}

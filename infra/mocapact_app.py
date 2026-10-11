@@ -50,7 +50,7 @@ mocapact_image = (
 )
 
 app = modal.App("ascent-mocapact")
-runs = modal.Volume.from_name("ascent-runs", create_if_missing=True)
+runs = modal.Volume.from_name("ariel-runs", create_if_missing=True)
 RUNS = Path("/runs")
 
 
