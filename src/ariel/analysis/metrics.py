@@ -1,4 +1,4 @@
-"""Per-episode metrics from Ariel recordings. See docs/recording-contract.md.
+"""Per-episode metrics from Ariel recordings.
 
 Reads episode summaries, worker ledgers and trace chunks. Supports schema v1
 points and v2 offsets from the centre of mass; newer schemas are rejected.

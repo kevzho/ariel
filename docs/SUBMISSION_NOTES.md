@@ -67,10 +67,9 @@ standing from 17 s.
 
 ## For Kevin and Sparsh (what changed since `main`)
 
-- The body is a 3D humanoid with telescoping segments, not a 2D soft body; claims P1, P2, P7 and
-  P10 in `docs/demo/claims.md` on `main` need rewriting from this file.
+- The body is a 3D humanoid with telescoping segments, not a 2D soft body.
 - Recordings are `ariel.recording.v1` (per-worker `index.jsonl` plus `chunk_*.npz` holding full
-  joint states), not the 2D point format in `docs/recording-contract.md`. A viewer can consume
+  joint states), not the 2D point format of the earlier recorder in `src/ariel/recording/`. A viewer can consume
   the rendered clips in `runs/progression-*` and `runs/final/` and the JSON summaries next to them.
 - Code, docs and checkpoints are on branch `feat/guhan-a1-sim` (pushed). Videos are not in Git;
   Guhan sends `runs/final/` directly.

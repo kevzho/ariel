@@ -414,7 +414,7 @@ def build_report(run_dirs, out_dir, *, plan=None, window: int = 20, n_boot: int 
                "second moments and bounding box.", ""]
         md += _table(["per-episode statistic", "early", "late"], table)
         md += ["", "A change here describes how much the body changed shape. It does not show that reshaping "
-               "helped; that needs the restricted baseline described in docs/evaluation-plan.md.", ""]
+               "helped; that needs a restricted baseline with reshaping locked.", ""]
     else:
         md += ["Fewer than two ordered training episodes; no early/late comparison.", ""]
 

@@ -12,7 +12,7 @@ Each worker has one writer process:
         video.segNNN.mp4    fragmented H.264 segments (decodable if killed)
         episode.json        summary written at episode end
 
-Training-loop integration is described in docs/recording-contract.md:
+Training-loop integration:
 
     run = RunRecorder("runs/r1", run_id="r1", meta={...})
     with run.episode(course, seed=s, initial_points=pts, training_step=n) as ep:

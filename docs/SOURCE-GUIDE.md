@@ -2,8 +2,7 @@
 
 This guide covers **`src/ariel/analysis/` and `src/ariel/recording/`**.
 The pulled repository now also contains simulator/training code under
-`src/ariel/mocap/` and other modules. See [ACTIVE-FILES.md](ACTIVE-FILES.md)
-for every current file and [PULL-REVIEW.md](PULL-REVIEW.md) for integration gaps.
+`src/ariel/mocap/` and other modules.
 
 The modules described here support RL training and explain results; they do
 not implement the simulator or train the policy themselves. Their earlier 2D
@@ -78,8 +77,7 @@ they do not run the physics or make the policy learn.
 An evaluation plan specifies work; it does not execute that work. A learning
 curve describes recorded behavior; an upward curve alone does not establish
 that reshaping caused improvement. That needs an appropriate comparison, such
-as the selected restricted-control baseline described in
-[evaluation-plan.md](evaluation-plan.md).
+as a restricted-control baseline (the same setup with reshaping locked).
 
 Missing information stays missing. For example, a recovered trace can establish
 some surviving steps without proving the complete episode return. Reports
@@ -117,7 +115,5 @@ flowchart TD
 data. `costs.py` exercises recording to measure overhead. Neither is evidence
 of learned movement or real obstacle-course success.
 
-For integration details, read [recording-contract.md](recording-contract.md).
-For evaluation methodology, read [evaluation-plan.md](evaluation-plan.md).
 The active ownership and task index remain [TASKS.md](TASKS.md). Compute jobs,
 including analysis and bulk encoding, are handed to Guhan for Modal execution.

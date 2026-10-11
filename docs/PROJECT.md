@@ -112,7 +112,7 @@ clearly defined restriction/baseline suited to the selected physics.
 Lunar agriculture scoring, OSDR plant modeling, regolith sample return,
 fixed-outline two-edit repair experiments, twelve-trial repair search,
 supervised gain-prediction ensembles, and the optional-repair-RL gate are
-historical work. They are preserved under [archive/](../archive/README.md).
+historical work and are not part of this repository.
 
 ## References to investigate
 

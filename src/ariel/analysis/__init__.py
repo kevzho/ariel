@@ -1,6 +1,6 @@
 """Evaluation plans and reports from Ariel recordings.
 
-See docs/evaluation-plan.md. CLI modules load lazily to support `python -m`.
+CLI modules load lazily to support `python -m`.
 """
 
 from importlib import import_module

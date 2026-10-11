@@ -1,4 +1,4 @@
-"""Episode recording and playback. See docs/recording-contract.md."""
+"""Episode recording and playback."""
 
 from .ledger import RecordingError, read_ledger
 from .recorder import EpisodeRecorder, RunRecorder, install_termination_handler, shape_descriptors
