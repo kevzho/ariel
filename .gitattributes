@@ -1,0 +1,10 @@
+# Keep source and checksum-bearing text identical across Windows and Mac.
+* text=auto eol=lf
+*.npz -text
+*.png -text
+*.jpg -text
+*.jpeg -text
+*.mp4 -text
+*.webm -text
+*.pt -text
+*.pth -text

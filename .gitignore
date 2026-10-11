@@ -1,0 +1,22 @@
+# Local environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+node_modules/
+dist/
+.DS_Store
+.env
+.env.*
+!.env.example
+
+# Generated training output belongs in artifact storage, not Git.
+/data/
+/runs/
+/recordings/
+/checkpoints/
+/docs/
+/depreciated-artifacts/
+/archive
+.vscode/

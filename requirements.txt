@@ -1,0 +1,4 @@
+# Recorder/analysis (A3/A6). Simulator and training dependencies are chosen in A1/A4.
+numpy>=1.24,<3
+Pillow>=10,<13
+imageio-ffmpeg==0.6.0
