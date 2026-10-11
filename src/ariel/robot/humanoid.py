@@ -1,4 +1,4 @@
-"""The ASCENT telescoping rescue humanoid, generated as MuJoCo XML.
+"""The Ariel telescoping rescue humanoid, generated as MuJoCo XML.
 
 Frame convention: z up, the robot faces +x, +y is its left.
 
@@ -8,7 +8,7 @@ Extending the slide moves the next joint away, changing the bone length while
 the physics keeps mass, momentum and contacts consistent.
 
 All actuators are plain force/torque motors. The controller (see
-``ascent.robot.control``) turns position targets into torques through a motor
+``ariel.robot.control``) turns position targets into torques through a motor
 model with torque-speed limits, so the policy cannot exceed realistic actuator
 performance.
 """
@@ -38,7 +38,7 @@ class Telescope:
 
 @dataclass(frozen=True)
 class RobotSpec:
-    name: str = "ascent-humanoid-v1"
+    name: str = "ariel-humanoid-v1"
     pelvis_height: float = 0.89
     torso: Telescope = Telescope(0.45, 0.85, 1.25, 1200.0)
     thigh: Telescope = Telescope(0.38, 0.80, 1.40, 1500.0)

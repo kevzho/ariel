@@ -5,13 +5,13 @@ progress and evidence. The old D/S/E/M/N task tree is archived.
 
 | Order | Task | Owner | Completion evidence |
 |---|---|---|---|
-| [A1 / #25](https://github.com/kevzho/ascent-rsi/issues/25) | Define body controls and prove reshaping within an episode | Guhan | Selected mechanism/runtime, actual shape-change recording, and launch command. |
-| [A2 / #26](https://github.com/kevzho/ascent-rsi/issues/26) | Build the rendered obstacle course and RL environment | Guhan | Movement/reshaping controls, observations, reward, contacts, and success condition in one continuing episode. |
-| [A3 / #27](https://github.com/kevzho/ascent-rsi/issues/27) | Record every training episode and checkpoint lineage | Kevin | Recorder code and artifact interface; Guhan verifies complete recordings on Modal. |
-| [A4 / #28](https://github.com/kevzho/ascent-rsi/issues/28) | Train movement and body adaptation with RL | Guhan | Real reward-driven learning, checkpoints, measured runtime, and complete episode recordings. |
-| [A5 / #29](https://github.com/kevzho/ascent-rsi/issues/29) | Build the progression viewer and lunar presentation | Sparsh | Browse actual episodes and checkpoint comparisons with visible training progress. |
-| [A6 / #30](https://github.com/kevzho/ascent-rsi/issues/30) | Prepare comparisons and report learning progress | Kevin | Comparison/analysis code and evidence report using runs executed by Guhan. |
-| [A7 / #31](https://github.com/kevzho/ascent-rsi/issues/31) | Write and package the training-progression demo | Kevin + Sparsh | Kevin owns the script and claims; Sparsh owns presentation assets and submission packaging. |
+| A1 / #25 | Define body controls and prove reshaping within an episode | Guhan | Selected mechanism/runtime, actual shape-change recording, and launch command. |
+| A2 / #26 | Build the rendered obstacle course and RL environment | Guhan | Movement/reshaping controls, observations, reward, contacts, and success condition in one continuing episode. |
+| A3 / #27 | Record every training episode and checkpoint lineage | Kevin | Recorder code and artifact interface; Guhan verifies complete recordings on Modal. |
+| A4 / #28 | Train movement and body adaptation with RL | Guhan | Real reward-driven learning, checkpoints, measured runtime, and complete episode recordings. |
+| A5 / #29 | Build the progression viewer and lunar presentation | Sparsh | Browse actual episodes and checkpoint comparisons with visible training progress. |
+| A6 / #30 | Prepare comparisons and report learning progress | Kevin | Comparison/analysis code and evidence report using runs executed by Guhan. |
+| A7 / #31 | Write and package the training-progression demo | Kevin + Sparsh | Kevin owns the script and claims; Sparsh owns presentation assets and submission packaging. |
 
 ## Responsibility and compute
 

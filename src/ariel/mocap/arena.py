@@ -1,6 +1,6 @@
-"""The ASCENT lunar course as a dm_control arena.
+"""The Ariel lunar course as a dm_control arena.
 
-Uses the same seeded generator as the MuJoCo 3 stack (``ascent.world.course``), so terrain,
+Uses the same seeded generator as the MuJoCo 3 stack (``ariel.world.course``), so terrain,
 habitat, fissure, scarp, tower, boulders and loose debris match the original layouts. Element
 counts are fixed at the largest a layout can use; unused elements are parked off the course.
 Composer recompiles the model on every reset, so a new layout takes effect at the next episode.

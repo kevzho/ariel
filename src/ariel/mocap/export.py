@@ -1,6 +1,6 @@
 """Export the telescoping CMU walker and a recorded episode for the Blender renderer.
 
-The Blender side (``ascent.art``) receives the same two things as for the first robot: a rig
+The Blender side (``ariel.art``) receives the same two things as for the first robot: a rig
 (every body with its collision shapes in the body frame) and one world pose per body per frame,
 computed here with forward kinematics from recorded ``qpos``. Each telescoping segment adds a
 helper frame ``tele_<label>`` that sits at the moving joint but keeps the parent bone's
@@ -77,7 +77,7 @@ def export_poses(env, qpos: np.ndarray, fps: float) -> dict:
 
 def pack_terrain(course, vista_res: float = 0.2, near_width: float = 9.0, near_dy: float = 0.05) -> bytes:
     """Course grid, near-field strips on both sides and a coarse vista (same layout as
-    ``ascent.world.settle.pack_terrain``, without importing the MuJoCo 3 stack)."""
+    ``ariel.world.settle.pack_terrain``, without importing the MuJoCo 3 stack)."""
     import io
 
     from ..world.course import HFIELD_RES, terrain_function, vista_grid

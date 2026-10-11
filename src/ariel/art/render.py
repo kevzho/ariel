@@ -3,7 +3,7 @@
     blender -b --python-exit-code 1 -P render.py -- --rig rig.json --poses poses.npz \
         --out /tmp/out --frames 50,225 --camera hero --res 1920x1080 --samples 128
 
-Runs inside Blender only; ``ascent`` must be importable on ``sys.path``.
+Runs inside Blender only; ``ariel`` must be importable on ``sys.path``.
 """
 
 from __future__ import annotations
@@ -19,8 +19,8 @@ import bpy
 import numpy as np
 from mathutils import Vector
 
-from ascent.art import environment as env
-from ascent.art.robot import build_robot, set_pose
+from ariel.art import environment as env
+from ariel.art.robot import build_robot, set_pose
 
 
 def setup_render(res: tuple[int, int], samples: int, device: str = "GPU") -> str:
@@ -287,13 +287,13 @@ def main(argv: list[str]) -> None:
     names = [str(n) for n in poses["names"]]
     shots = {}
     if a.scene:
-        from ascent.art.base import build_base
+        from ariel.art.base import build_base
         scene = json.loads(Path(a.scene).read_text())
         terr = np.load(a.terrain)
         loose_names = {b["name"] for b in scene["loose"]}
         rig = {**rig, "bodies": [b for b in rig["bodies"] if b["name"] not in loose_names]}
         if rig.get("kind") == "cmu":
-            from ascent.art.robot_cmu import add_headlamps_cmu, build_robot_cmu
+            from ariel.art.robot_cmu import add_headlamps_cmu, build_robot_cmu
             empties = build_robot_cmu(rig)
             add_headlamps_cmu(empties)
         else:
@@ -318,13 +318,13 @@ def main(argv: list[str]) -> None:
         shots = course_shots(scene)
         if rig.get("kind") == "cmu" and "thorax" in empties:
             try:                                             # HackPHS badge on the power pack
-                from ascent.art.base import place_logo
+                from ariel.art.base import place_logo
                 place_logo("robot_logo", 0.2, (0.0, 0.06, -0.2285), (0.0, math.pi, 0.0), "robot",
                            parent=empties["thorax"])
             except Exception as exc:  # noqa: BLE001
                 print("robot logo skipped:", repr(exc)[:200], flush=True)
         if a.export_visual:
-            from ascent.art.export_mj import export_visuals
+            from ariel.art.export_mj import export_visuals
             robot_names = {b["name"] for b in rig["bodies"]}
             set_pose(empties, names, poses["pos"][0], poses["quat"][0])
             bpy.context.view_layer.update()
@@ -334,7 +334,7 @@ def main(argv: list[str]) -> None:
             return
     else:
         if rig.get("kind") == "cmu":
-            from ascent.art.robot_cmu import build_robot_cmu
+            from ariel.art.robot_cmu import build_robot_cmu
             empties = build_robot_cmu(rig)
         else:
             empties = build_robot(rig)

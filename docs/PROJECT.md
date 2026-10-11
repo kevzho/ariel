@@ -2,7 +2,7 @@
 
 ## The idea
 
-**ASCENT trains an RL agent to control and visibly reshape its own physical body
+**Ariel trains an RL agent to control and visibly reshape its own physical body
 while navigating a rendered obstacle course.**
 
 The course is inspired by search-and-rescue situations. The lunar setting connects

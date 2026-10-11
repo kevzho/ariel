@@ -40,10 +40,10 @@ mocapact_image = (
         f" && wget -q {HF}/transfer.tar.gz && tar -xzf transfer.tar.gz && rm transfer.tar.gz",
     )
 )
-image = mocapact_image.add_local_python_source("ascent")
+image = mocapact_image.add_local_python_source("ariel")
 
-app = modal.App("ascent-scenarios")
-runs = modal.Volume.from_name("ascent-runs")
+app = modal.App("ariel-scenarios")
+runs = modal.Volume.from_name("ariel-runs")
 RUNS = Path("/runs")
 
 ELEMENTS = {"C": "crates", "D": "deck", "F": "fissure", "S": "slope"}
@@ -65,7 +65,7 @@ def ordered_params(cfg, level: dict, order: str):
     """
     import dataclasses
 
-    from ascent.mocap.env import showcase_params
+    from ariel.mocap.env import showcase_params
 
     base = showcase_params(cfg, level)
     pad = base.pad_end
@@ -107,9 +107,9 @@ def scenario_job(out_id: str, job: dict) -> dict:
     import torch
     from dm_control.mujoco import engine
 
-    from ascent.mocap.env import ReshapeEnv
-    from ascent.mocap.export import export_poses, export_rig, pack_terrain
-    from ascent.mocap.train import load_policy, make_env_cfg
+    from ariel.mocap.env import ReshapeEnv
+    from ariel.mocap.export import export_poses, export_rig, pack_terrain
+    from ariel.mocap.train import load_policy, make_env_cfg
 
     torch.set_num_threads(1)
     runs.reload()

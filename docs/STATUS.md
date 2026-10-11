@@ -8,13 +8,13 @@ Updated October 11, 2026, 07:50 EDT. All training is stopped. The video to submi
 
 - **Body:** the CMU humanoid used by MoCapAct (56 position-controlled joints) with nine
   telescoping segments added: thighs, shins, upper arms, forearms and torso
-  ([walker.py](../src/ascent/mocap/walker.py)). Left and right move together, so the policy
+  ([walker.py](../src/ariel/mocap/walker.py)). Left and right move together, so the policy
   commands five lengths. Segments change at up to 0.25 m/s while the robot keeps moving.
 - **Pretrained part (not ours, never updated):** MoCapAct's velocity-control policy and
   low-level motor decoder (Wagener et al., NeurIPS 2022; MIT code, CDLA-2.0 models), trained on
   CMU motion-capture clips. It turns a speed and heading into human joint targets, walking or running.
 - **Learned part (ours):** a PPO policy above the frozen prior
-  ([env.py](../src/ascent/mocap/env.py), [train.py](../src/ascent/mocap/train.py)). Every control
+  ([env.py](../src/ariel/mocap/env.py), [train.py](../src/ariel/mocap/train.py)). Every control
   step (33 Hz) it outputs speed, a heading adjustment, a correction to the prior's 60-d motor
   intention, small joint corrections on legs and spine, and the five segment lengths. It sees its
   own joints and motion, a terrain height scan (13 points ahead by 5 across) and an overhead
@@ -22,7 +22,7 @@ Updated October 11, 2026, 07:50 EDT. All training is stopped. The video to submi
 - **Physics:** MuJoCo 2.2.2 through dm_control, **Earth gravity (9.81 m/s²)**. The lunar base is the
   visual setting only. The pretrained prior falls at lunar gravity
   (`mocapact-probe-20261011-014450`); we do not claim lunar-gravity locomotion.
-- **Course** ([course.py](../src/ascent/world/course.py), a new random layout every training
+- **Course** ([course.py](../src/ariel/world/course.py), a new random layout every training
   episode): landing pad, two cargo crates near the walking line, a deck hanging under the
   collapsed module, a fissure, a rocky constant-gradient slope, a flat approach, the astronaut.
 - **Training aids:**
@@ -140,7 +140,7 @@ task, solar panels removed from the route, body-height fix beyond the slope). Ea
 the episodes in progress; the exact history is in each run's `train_log.jsonl` (`resumed` events)
 and `config.json`. Final checkpoints, configs and logs are in [`models/`](../models/README.md).
 
-Every training episode is recorded on the Modal volume `ascent-runs` under `<run>/episodes/`
+Every training episode is recorded on the Modal volume `ariel-runs` under `<run>/episodes/`
 (state every second control step, every action, reward term and policy version); for example
 `reshape-s1` had 107,703 recorded episodes and 19.9M recorded steps at 06:50.
 `runs/progression-reshape-s1-20261011-030933/` holds five clips, one typical attempt from each

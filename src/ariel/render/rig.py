@@ -1,6 +1,6 @@
 """Export a MuJoCo model's bodies and geoms, and recorded body poses, for Blender.
 
-The Blender side (``ascent.art``) never imports MuJoCo. It receives:
+The Blender side (``ariel.art``) never imports MuJoCo. It receives:
 
 * ``rig``: every body with its parent and its geoms in the body frame;
 * ``poses``: world position and quaternion of every body for each frame,

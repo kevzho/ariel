@@ -1,11 +1,11 @@
-"""Modal jobs for ASCENT. All physics, rendering and training run here.
+"""Modal jobs for Ariel. All physics, rendering and training run here.
 
 Launch from the repository root (Guhan's workspace, profile tejas-16842):
 
     uv run modal run infra/modal_app.py::body_check_job
     uv run modal run infra/modal_app.py::body_check_job --renderer cpu
 
-Outputs land in the ``ascent-runs`` volume and are also copied to ``runs/<run_id>/``
+Outputs land in the ``ariel-runs`` volume and are also copied to ``runs/<run_id>/``
 locally (ignored by Git).
 """
 
@@ -30,8 +30,8 @@ _base = (
         " > /usr/share/glvnd/egl_vendor.d/10_nvidia.json",
     )
 )
-egl_image = _base.env({"MUJOCO_GL": "egl", "NVIDIA_DRIVER_CAPABILITIES": "all"}).add_local_python_source("ascent")
-cpu_image = _base.env({"MUJOCO_GL": "osmesa", "PYOPENGL_PLATFORM": "osmesa"}).add_local_python_source("ascent")
+egl_image = _base.env({"MUJOCO_GL": "egl", "NVIDIA_DRIVER_CAPABILITIES": "all"}).add_local_python_source("ariel")
+cpu_image = _base.env({"MUJOCO_GL": "osmesa", "PYOPENGL_PLATFORM": "osmesa"}).add_local_python_source("ariel")
 
 BLENDER_VERSION = "4.5.14"
 _EARTH = "https://eoimages.gsfc.nasa.gov/images/imagerecords"
@@ -51,11 +51,11 @@ blender_image = (
     )
     .pip_install("numpy>=2.0")
     .add_local_dir("assets", "/assets/repo")
-    .add_local_python_source("ascent")
+    .add_local_python_source("ariel")
 )
 
-app = modal.App("ascent")
-runs = modal.Volume.from_name("ascent-runs", create_if_missing=True)
+app = modal.App("ariel")
+runs = modal.Volume.from_name("ariel-runs", create_if_missing=True)
 RUNS = Path("/runs")
 
 
@@ -71,7 +71,7 @@ def _save(run_id: str, files: dict[str, bytes]) -> None:
 def body_check(run_id: str) -> dict[str, bytes]:
     import numpy as np
 
-    from ascent.robot.scripted import run_body_check
+    from ariel.robot.scripted import run_body_check
 
     res = run_body_check()
     buf = io.BytesIO()
@@ -92,7 +92,7 @@ def _render(trace: bytes, cameras: list[str], width: int, height: int,
     import mujoco
     import numpy as np
 
-    from ascent.render.mjrender import TraceRenderer, write_video
+    from ariel.render.mjrender import TraceRenderer, write_video
 
     z = np.load(io.BytesIO(trace))
     model = mujoco.MjModel.from_xml_string(str(z["xml"]))
@@ -144,10 +144,10 @@ def export_rig(trace: bytes, every: int = 1) -> dict[str, bytes]:
     import mujoco
     import numpy as np
 
-    from ascent.render.rig import body_poses
-    from ascent.render.rig import export_rig as rig_of
+    from ariel.render.rig import body_poses
+    from ariel.render.rig import export_rig as rig_of
 
-    from ascent.world.settle import load_model
+    from ariel.world.settle import load_model
 
     z = np.load(io.BytesIO(trace))
     model = load_model(z)
@@ -170,7 +170,7 @@ def render_blender(run_id: str, rig: bytes, poses: bytes, frames: list[int], cam
     (work / "rig.json").write_bytes(rig)
     (work / "poses.npz").write_bytes(poses)
     boot = ("import sys; sys.path.insert(0, '/root'); import runpy; "
-            "runpy.run_module('ascent.art.render', run_name='__main__')")
+            "runpy.run_module('ariel.art.render', run_name='__main__')")
     cmd = ["/opt/blender/blender", "-b", "--python-exit-code", "1", "--python-expr", boot, "--",
            "--rig", str(work / "rig.json"), "--poses", str(work / "poses.npz"), "--out", str(out),
            "--assets", "/assets", "--frames", ",".join(map(str, frames)), "--cameras", ",".join(cameras),
@@ -213,8 +213,8 @@ def lookdev(trace_dir: str = "", frames: str = "50,225,450", cameras: str = "her
 
 @app.function(image=cpu_image, cpu=2.0, memory=4096, timeout=900, volumes={RUNS: runs})
 def course_settle(run_id: str, params: dict | None = None) -> dict[str, bytes]:
-    from ascent.world.course import CourseParams
-    from ascent.world.settle import pack_terrain, pack_trace, settle_course
+    from ariel.world.course import CourseParams
+    from ariel.world.settle import pack_terrain, pack_trace, settle_course
 
     res = settle_course(CourseParams(**(params or {})))
     files = {"trace.npz": pack_trace(res), "terrain.npz": pack_terrain(res["course"]),
@@ -278,7 +278,7 @@ def render_video_chunk(rig: bytes, poses: bytes, scene: bytes, terrain: bytes, f
         (work / n).write_bytes(b)
     (work / "frames.txt").write_text(" ".join(map(str, frames)))
     boot = ("import sys; sys.path.insert(0, '/root'); import runpy; "
-            "runpy.run_module('ascent.art.render', run_name='__main__')")
+            "runpy.run_module('ariel.art.render', run_name='__main__')")
     cmd = ["/opt/blender/blender", "-b", "--python-exit-code", "1", "--python-expr", boot, "--",
            "--rig", str(work / "rig.json"), "--poses", str(work / "poses.npz"), "--out", str(out),
            "--assets", "/assets", "--scene", str(work / "scene.json"), "--terrain", str(work / "terrain.npz"),
@@ -308,9 +308,9 @@ def encode_video(run_id: str, name: str, frames: dict[str, bytes], fps: float) -
 @app.function(image=cpu_image, cpu=2.0, memory=4096, timeout=900, volumes={RUNS: runs})
 def course_body_check(run_id: str) -> dict[str, bytes]:
     """The scripted reshaping program, performed on the showcase course's landing pad."""
-    from ascent.robot.scripted import run_body_check
-    from ascent.world.course import CourseParams, generate_course
-    from ascent.world.settle import pack_terrain, pack_trace
+    from ariel.robot.scripted import run_body_check
+    from ariel.world.course import CourseParams, generate_course
+    from ariel.world.settle import pack_terrain, pack_trace
 
     course = generate_course(CourseParams())
     res = run_body_check(course=course)
@@ -369,7 +369,7 @@ def export_visual_assets(rig: bytes, poses: bytes, scene: bytes, terrain: bytes)
     for n, b in (("rig.json", rig), ("poses.npz", poses), ("scene.json", scene), ("terrain.npz", terrain)):
         (work / n).write_bytes(b)
     boot = ("import sys; sys.path.insert(0, '/root'); import runpy; "
-            "runpy.run_module('ascent.art.render', run_name='__main__')")
+            "runpy.run_module('ariel.art.render', run_name='__main__')")
     cmd = ["/opt/blender/blender", "-b", "--python-exit-code", "1", "--python-expr", boot, "--",
            "--rig", str(work / "rig.json"), "--poses", str(work / "poses.npz"), "--out", "/tmp/vis_out",
            "--assets", "/assets", "--scene", str(work / "scene.json"), "--terrain", str(work / "terrain.npz"),
@@ -407,8 +407,8 @@ def mj_render_trace(run_id: str, trace: bytes, cameras: list[str], width: int = 
     import imageio.v2 as imageio
     import numpy as np
 
-    from ascent.render.mjrender import TraceRenderer, model_with_visuals, write_video
-    from ascent.world.visual import load_library
+    from ariel.render.mjrender import TraceRenderer, model_with_visuals, write_video
+    from ariel.world.visual import load_library
 
     lib_dir = RUNS / "visual" / VISUAL_VERSION
     lib = load_library(lib_dir) if lib_dir.exists() else None
@@ -467,7 +467,7 @@ def env_smoke(steps: int = 1500, level: float = 0.0) -> dict:
     """Random-action smoke test of the RL environment (correctness and throughput)."""
     import numpy as np
 
-    from ascent.env.lunar import OBSTACLES, LunarRescueEnv
+    from ariel.env.lunar import OBSTACLES, LunarRescueEnv
 
     t0 = time.perf_counter()
     env = LunarRescueEnv(seed=1, pool_size=2, level={k: level for k in OBSTACLES})
@@ -505,7 +505,7 @@ def env_profile() -> dict:
     import numpy as np
     import mujoco
 
-    from ascent.env.lunar import OBSTACLES, LunarRescueEnv
+    from ariel.env.lunar import OBSTACLES, LunarRescueEnv
 
     env = LunarRescueEnv(seed=1, pool_size=1, level={k: 0.0 for k in OBSTACLES})
     env.reset(spawn=0)
@@ -556,7 +556,7 @@ def contact_census() -> dict:
 
     import mujoco
 
-    from ascent.env.lunar import OBSTACLES, LunarRescueEnv
+    from ariel.env.lunar import OBSTACLES, LunarRescueEnv
 
     env = LunarRescueEnv(seed=1, pool_size=1, level={k: 1.0 for k in OBSTACLES})
     env.reset(spawn=0)
@@ -581,7 +581,7 @@ train_image = (
     .pip_install(f"mujoco=={MUJOCO_VERSION}", "numpy>=2.0", "imageio>=2.34", "imageio-ffmpeg>=0.5")
     .pip_install("torch==2.11.0", index_url="https://download.pytorch.org/whl/cu128")
     .env({"MUJOCO_GL": "egl", "OMP_NUM_THREADS": "1"})
-    .add_local_python_source("ascent")
+    .add_local_python_source("ariel")
 )
 
 
@@ -598,7 +598,7 @@ def train_job(run_id: str, overrides: dict | None = None, note: str = "") -> dic
         with open(log, "a") as f:
             f.write(json.dumps({"event": "note", "note": note, "time": time.time()}) + "\n")
 
-    from ascent.train.ppo import TrainConfig, train
+    from ariel.train.ppo import TrainConfig, train
 
     runs.reload()                                   # see checkpoints written before a restart
     cfg = TrainConfig(run_id=run_id, out_root=str(RUNS), **(overrides or {}))
@@ -645,9 +645,9 @@ def audit_run(run_id: str, sample: str = "best") -> dict:
 
     import numpy as np
 
-    from ascent.record.recorder import load_episode
-    from ascent.world.course import CourseParams, generate_course
-    from ascent.world.scene import build_world_xml, hfield_bytes
+    from ariel.record.recorder import load_episode
+    from ariel.world.course import CourseParams, generate_course
+    from ariel.world.scene import build_world_xml, hfield_bytes
 
     runs.reload()
     run_dir = RUNS / run_id
@@ -711,7 +711,7 @@ def debug_sink(max_episodes: int = 60) -> dict:
     import numpy as np
     import mujoco
 
-    from ascent.env.lunar import OBSTACLES, LunarRescueEnv
+    from ariel.env.lunar import OBSTACLES, LunarRescueEnv
 
     env = LunarRescueEnv(seed=3, pool_size=1, level={k: 0.0 for k in OBSTACLES})
     rng = np.random.default_rng(1)
@@ -771,8 +771,8 @@ def eval_checkpoint(run_id: str, checkpoint: str, lock_telescoping: bool = False
 
     import numpy as np
 
-    from ascent.train.evaluate import evaluate
-    from ascent.world.course import CourseParams, random_params
+    from ariel.train.evaluate import evaluate
+    from ariel.world.course import CourseParams, random_params
 
     runs.reload()
     showcase = asdict(CourseParams())
@@ -799,7 +799,7 @@ def compare(run_id: str, picks: int = 3, render: bool = True):
     """Evaluate early / middle / late checkpoints of a run on the showcase and held-out courses."""
     import subprocess
 
-    names = subprocess.run(["modal", "volume", "ls", "ascent-runs", f"{run_id}/checkpoints"],
+    names = subprocess.run(["modal", "volume", "ls", "ariel-runs", f"{run_id}/checkpoints"],
                            capture_output=True, text=True).stdout.split()
     ckpts = sorted({n.split("/")[-1] for n in names if n.endswith(".pt")})
     chosen = [ckpts[int(round(i * (len(ckpts) - 1) / max(picks - 1, 1)))] for i in range(picks)] if ckpts else []
@@ -815,7 +815,7 @@ def compare(run_id: str, picks: int = 3, render: bool = True):
         tmp.mkdir(parents=True, exist_ok=True)
         for ck in chosen:
             local_trace = tmp / f"{ck.replace('.pt', '')}_showcase_trace.npz"
-            tr = subprocess.run(["modal", "volume", "get", "--force", "ascent-runs",
+            tr = subprocess.run(["modal", "volume", "get", "--force", "ariel-runs",
                                  f"{run_id}/evaluations/{ck.replace('.pt', '')}/course0_trace.npz", str(local_trace)],
                                 capture_output=True)
             if tr.returncode == 0 and local_trace.exists():
@@ -826,8 +826,8 @@ def compare(run_id: str, picks: int = 3, render: bool = True):
 
 @app.function(image=cpu_image, cpu=2.0, memory=4096, timeout=900)
 def balance_trial(balance: dict) -> dict:
-    from ascent.robot.scripted import run_body_check
-    from ascent.world.course import CourseParams, generate_course
+    from ariel.robot.scripted import run_body_check
+    from ariel.world.course import CourseParams, generate_course
 
     res = run_body_check(course=generate_course(CourseParams()), balance=balance)
     m = res["metrics"]
@@ -891,10 +891,10 @@ def crawl_check(clearances: list[float] = (0.72, 0.62)) -> dict:
     import numpy as np
     import mujoco
 
-    from ascent.env.lunar import LunarRescueEnv
-    from ascent.robot.poses import place, robot_top_and_bottom
-    from ascent.world.course import CourseParams
-    from ascent.world.scene import hfield_bytes
+    from ariel.env.lunar import LunarRescueEnv
+    from ariel.robot.poses import place, robot_top_and_bottom
+    from ariel.world.course import CourseParams
+    from ariel.world.scene import hfield_bytes
 
     out, traces = {}, {}
     for clr in clearances:
@@ -936,9 +936,9 @@ def crawl_check(clearances: list[float] = (0.72, 0.62)) -> dict:
 
 @app.function(image=cpu_image, cpu=2.0, memory=8192, timeout=1800, volumes={RUNS: runs})
 def verify_traverse(run_id: str) -> dict:
-    from ascent.verify.traverse import record_and_reload
-    from ascent.world.course import CourseParams, generate_course
-    from ascent.world.settle import pack_terrain
+    from ariel.verify.traverse import record_and_reload
+    from ariel.world.course import CourseParams, generate_course
+    from ariel.world.settle import pack_terrain
 
     trace, info = record_and_reload(str(RUNS), run_id)
     runs.commit()
@@ -950,7 +950,7 @@ def verify_remote(run_id: str) -> dict:
     """Crawl fit + recording round trip + every camera (MuJoCo and Blender), saved to the volume."""
     import numpy as np
 
-    from ascent.world.course import CourseParams
+    from ariel.world.course import CourseParams
 
     crawl_call = crawl_check.spawn([0.78, 0.70])
     trav = verify_traverse.remote(run_id)
@@ -1112,7 +1112,7 @@ def _render_chunk(run_id: str, rig: bytes, poses: bytes, scene: bytes, terrain: 
         (work / n).write_bytes(b)
     (work / "frames.txt").write_text(" ".join(map(str, frames)))
     boot = ("import sys; sys.path.insert(0, '/root'); import runpy; "
-            "runpy.run_module('ascent.art.render', run_name='__main__')")
+            "runpy.run_module('ariel.art.render', run_name='__main__')")
     cmd = ["/opt/blender/blender", "-b", "--python-exit-code", "1", "--python-expr", boot, "--",
            "--rig", str(work / "rig.json"), "--poses", str(work / "poses.npz"), "--out", str(out),
            "--assets", "/assets", "--scene", str(work / "scene.json"), "--terrain", str(work / "terrain.npz"),

@@ -4,7 +4,7 @@ Updated October 11, 2026, 07:55 EDT. Every number here has its run in [STATUS.md
 
 ## One-paragraph description
 
-ASCENT is a rescue humanoid that changes the length of its own limbs while it moves. A
+Ariel is a rescue humanoid that changes the length of its own limbs while it moves. A
 pretrained human motion model (MoCapAct) gives it a natural walk and run; our reinforcement
 learning layer sits on top and decides, step by step, how fast to go, where to steer, how to
 correct the motion, and how long each body segment should be. On a damaged lunar base course it
@@ -69,7 +69,7 @@ standing from 17 s.
 
 - The body is a 3D humanoid with telescoping segments, not a 2D soft body; claims P1, P2, P7 and
   P10 in `docs/demo/claims.md` on `main` need rewriting from this file.
-- Recordings are `ascent.recording.v1` (per-worker `index.jsonl` plus `chunk_*.npz` holding full
+- Recordings are `ariel.recording.v1` (per-worker `index.jsonl` plus `chunk_*.npz` holding full
   joint states), not the 2D point format in `docs/recording-contract.md`. A viewer can consume
   the rendered clips in `runs/progression-*` and `runs/final/` and the JSON summaries next to them.
 - Code, docs and checkpoints are on branch `feat/guhan-a1-sim` (pushed). Videos are not in Git;

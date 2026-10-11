@@ -71,7 +71,7 @@ def build_world_xml(robot: RobotSpec = RobotSpec(), physics: PhysicsSpec = Physi
                     course: Course | None = None) -> tuple[str, dict]:
     """Return (xml, meta). With a course, MuJoCo needs ``assets()`` for the heightfield."""
     parts = robot_xml_parts(robot)
-    m = ET.Element("mujoco", model=f"ascent-{robot.name}")
+    m = ET.Element("mujoco", model=f"ariel-{robot.name}")
     ET.SubElement(m, "compiler", angle="radian", autolimits="true")
     ET.SubElement(m, "option", timestep=f"{physics.timestep}", gravity=_f(0, 0, -physics.gravity),
                   integrator="implicitfast", cone="pyramidal", iterations="15", ls_iterations="8")

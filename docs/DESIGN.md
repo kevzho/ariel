@@ -28,7 +28,7 @@ every actuator on every control step.
 Look: Artemis-era flight hardware. White thermal panels, gold-foil insulation on joint
 housings, black anodized structure, polished inner tubes that show when segments
 extend, a dark sensor visor with a lidar puck, light regolith dust. Markings use a
-fictional ASCENT mission patch and HackPHS branding; no real agency insignia.
+fictional Ariel mission patch and HackPHS branding; no real agency insignia.
 
 ## World: a damaged base after a moonquake
 

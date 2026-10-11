@@ -1,6 +1,6 @@
 """Rescue-robot shells for the telescoping CMU walker (the MoCapAct body). Runs inside Blender only.
 
-Same look as the first ASCENT robot (white thermal panels, gold-foil joint housings, black
+Same look as the first Ariel robot (white thermal panels, gold-foil joint housings, black
 anodized structure, polished inner tubes, dark visor), built around the CMU humanoid's bodies.
 Each physics body is an Empty; its parts are modelled in that body's frame. The CMU torso and
 head frames have x to the robot's left, y up and z forward; the feet have -y forward and -z down.
@@ -137,7 +137,7 @@ def _head(e, body: dict) -> None:
     level = Quaternion((0.0, 1.0, 0.0), -0.33)
     H = _empty("head_frame", e, (0, 0.078, 0.012),
                Matrix(((0, 1, 0), (0, 0, 1), (1, 0, 0))).to_quaternion() @ level)
-    # rounded sensor helmet, narrower at the jaw (same construction as the first ASCENT robot)
+    # rounded sensor helmet, narrower at the jaw (same construction as the first Ariel robot)
     bpy.ops.mesh.primitive_cube_add(size=2, location=(0, 0, 0))
     o = bpy.context.active_object
     o.scale = (0.118, 0.104, 0.112)

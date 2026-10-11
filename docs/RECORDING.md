@@ -1,13 +1,13 @@
-# Recording format (`ascent.recording.v1`)
+# Recording format (`ariel.recording.v1`)
 
 Every training episode from every worker is recorded from its first step, including
 random exploration, failures and episodes cut short by shutdown. Checkpoint evaluations
 are recorded the same way and labelled `origin: checkpoint_evaluation`.
 
-Implementation: [`src/ascent/record/recorder.py`](../src/ascent/record/recorder.py).
+Implementation: [`src/ariel/record/recorder.py`](../src/ariel/record/recorder.py).
 Audit: `uv run modal run infra/modal_app.py::audit --run-id <run>` (Modal profile `tejas-16842`).
 
-## Layout (Modal volume `ascent-runs`)
+## Layout (Modal volume `ariel-runs`)
 
 ```
 /<run_id>/

@@ -1,6 +1,6 @@
 # Checkpoints
 
-Policies of the learned layer (PyTorch, CPU), copied from the Modal volume `ascent-runs` on
+Policies of the learned layer (PyTorch, CPU), copied from the Modal volume `ariel-runs` on
 October 11, 2026 at 07:43 EDT, after all runs were stopped.
 The folder is the training run behind the submission video and holds its checkpoints, the
 run's `config.json` and its `train_log.jsonl`. The pretrained MoCapAct models are not here; the Modal image downloads them.
@@ -13,7 +13,7 @@ run's `config.json` and its `train_log.jsonl`. The pretrained MoCapAct models ar
 A checkpoint is a dict: `model` (actor and critic weights), `norm_actor` / `norm_critic`
 (observation normalisers), `version`, `global_step`, `level` (course difficulty when saved),
 `config` (the full training configuration, including the environment overrides) and `dims`.
-`ascent.mocap.train.load_policy(path)` returns a deterministic policy function.
+`ariel.mocap.train.load_policy(path)` returns a deterministic policy function.
 
 Running a policy needs the pinned MoCapAct stack (Python 3.10, MuJoCo 2.2.2, dm_control 1.0.7),
 which is defined in `infra/mocapact_app.py` and runs on Modal.

@@ -49,8 +49,8 @@ mocapact_image = (
     )
 )
 
-app = modal.App("ascent-mocapact")
-runs = modal.Volume.from_name("ascent-runs", create_if_missing=True)
+app = modal.App("ariel-mocapact")
+runs = modal.Volume.from_name("ariel-runs", create_if_missing=True)
 RUNS = Path("/runs")
 
 
@@ -167,8 +167,8 @@ def probe(speed: float = 1.2, steps: int = 400):
     print("files:", len(rep["files"]), "->", str(local))
 
 
-# the ASCENT package (course generator + ascent.mocap) on top of the pinned stack
-course_image = mocapact_image.add_local_python_source("ascent")
+# the Ariel package (course generator + ariel.mocap) on top of the pinned stack
+course_image = mocapact_image.add_local_python_source("ariel")
 
 
 def _transfer_root() -> str:
@@ -192,10 +192,10 @@ def course_smoke_job(run_id: str, steps: int = 500, telescoping: bool = True, sp
     from mocapact.sb3 import utils
     from stable_baselines3.common.utils import obs_as_tensor
 
-    from ascent.mocap.arena import LunarCourse
-    from ascent.mocap.task import WALK_POLICY_KEYS, CourseTask, StandInitializer
-    from ascent.mocap.walker import TelescopingCMUHumanoid
-    from ascent.world.course import CourseParams, generate_course
+    from ariel.mocap.arena import LunarCourse
+    from ariel.mocap.task import WALK_POLICY_KEYS, CourseTask, StandInitializer
+    from ariel.mocap.walker import TelescopingCMUHumanoid
+    from ariel.world.course import CourseParams, generate_course
 
     out = RUNS / run_id
     out.mkdir(parents=True, exist_ok=True)
@@ -279,7 +279,7 @@ def _load_walk():
     from mocapact.distillation import model as mmodel
     from mocapact.sb3 import utils
 
-    from ascent.mocap.task import WALK_POLICY_KEYS
+    from ariel.mocap.task import WALK_POLICY_KEYS
 
     root = _transfer_root()
     high = utils.load_policy(root, list(WALK_POLICY_KEYS), device="cpu")
@@ -301,8 +301,8 @@ def tolerance_job(run_id: str, cfg: dict) -> dict:
     from dm_control.locomotion.arenas import floors
     from stable_baselines3.common.utils import obs_as_tensor
 
-    from ascent.mocap.task import WALK_POLICY_KEYS, CourseTask, StandInitializer
-    from ascent.mocap.walker import GROUPS, SLIDE_SPEED, TelescopingCMUHumanoid
+    from ariel.mocap.task import WALK_POLICY_KEYS, CourseTask, StandInitializer
+    from ariel.mocap.walker import GROUPS, SLIDE_SPEED, TelescopingCMUHumanoid
 
     torch.set_num_threads(1)
     name, speed = cfg["name"], float(cfg.get("speed", 1.0))
@@ -320,7 +320,7 @@ def tolerance_job(run_id: str, cfg: dict) -> dict:
     def command(key):
         # "a"/"b" are group commands in [-1, 1]; "ar"/"br" are length ratios (1.0 = nominal)
         if cfg.get(key + "r"):
-            from ascent.mocap.walker import DEFAULT_RANGE
+            from ariel.mocap.walker import DEFAULT_RANGE
             rng = {**DEFAULT_RANGE, **(cfg.get("ranges") or {})}
             out = []
             for g in GROUPS:
@@ -474,8 +474,8 @@ def env_check_job(run_id: str, variant: dict) -> dict:
     import imageio
     import numpy as np
 
-    from ascent.mocap.env import EnvCfg, ReshapeEnv, showcase_params
-    from ascent.mocap.train import make_env_cfg
+    from ariel.mocap.env import EnvCfg, ReshapeEnv, showcase_params
+    from ariel.mocap.train import make_env_cfg
 
     import torch
     torch.set_num_threads(1)
@@ -502,7 +502,7 @@ def env_check_job(run_id: str, variant: dict) -> dict:
             a[env.tele_slice] = env.teacher()
             a[1] = env.steer_teacher()
         if variant.get("force"):
-            from ascent.mocap.env import _ratios_to_command
+            from ariel.mocap.env import _ratios_to_command
             a[env.tele_slice] = _ratios_to_command(variant["force"], cfg.ranges)
         if noise:
             a = a + rng.normal(0.0, noise, env.act_dim)
@@ -571,7 +571,7 @@ def env_check(low: float = 1.82, fissure: float = 0.5, video: bool = True):
 def _reshape_train(run_id: str, overrides: dict | None = None) -> dict:
     import threading
 
-    from ascent.mocap.train import TrainConfig, train
+    from ariel.mocap.train import TrainConfig, train
 
     runs.reload()                                   # see checkpoints written before a restart
     cfg = TrainConfig(run_id=run_id, out_root=str(RUNS), **(overrides or {}))
@@ -617,8 +617,8 @@ def heading_debug_job(variant: dict) -> dict:
     import numpy as np
     import torch
 
-    from ascent.mocap.env import ReshapeEnv, showcase_params
-    from ascent.mocap.train import make_env_cfg
+    from ariel.mocap.env import ReshapeEnv, showcase_params
+    from ariel.mocap.train import make_env_cfg
 
     torch.set_num_threads(1)
     cfg = make_env_cfg(variant.get("env", {}))
@@ -671,8 +671,8 @@ def reshape_eval_job(run_id: str, checkpoint: str, job: dict) -> dict:
     import numpy as np
     import torch
 
-    from ascent.mocap.env import ReshapeEnv, sample_params, showcase_params
-    from ascent.mocap.train import load_policy, make_env_cfg
+    from ariel.mocap.env import ReshapeEnv, sample_params, showcase_params
+    from ariel.mocap.train import load_policy, make_env_cfg
 
     torch.set_num_threads(1)
     runs.reload()
@@ -803,7 +803,7 @@ def spawn_check_job(level: float, seed: int) -> list:
     import numpy as np
     import torch
 
-    from ascent.mocap.env import EnvCfg, ReshapeEnv, showcase_params
+    from ariel.mocap.env import EnvCfg, ReshapeEnv, showcase_params
 
     torch.set_num_threads(1)
     cfg = EnvCfg()
@@ -889,9 +889,9 @@ def showcase_export_job(out_id: str, job: dict) -> dict:
     import numpy as np
     import torch
 
-    from ascent.mocap.env import EnvCfg, ReshapeEnv, showcase_params
-    from ascent.mocap.export import export_poses, export_rig, pack_terrain
-    from ascent.mocap.train import load_policy, make_env_cfg
+    from ariel.mocap.env import EnvCfg, ReshapeEnv, showcase_params
+    from ariel.mocap.export import export_poses, export_rig, pack_terrain
+    from ariel.mocap.train import load_policy, make_env_cfg
 
     torch.set_num_threads(1)
     source = job.get("source", "rule")
@@ -1055,10 +1055,10 @@ def replay_episode_job(run_id: str, row: dict, name: str) -> dict:
     import numpy as np
     import torch
 
-    from ascent.mocap.env import ReshapeEnv
-    from ascent.mocap.train import make_env_cfg
-    from ascent.record.recorder import load_episode
-    from ascent.world.course import CourseParams
+    from ariel.mocap.env import ReshapeEnv
+    from ariel.mocap.train import make_env_cfg
+    from ariel.record.recorder import load_episode
+    from ariel.world.course import CourseParams
 
     torch.set_num_threads(1)
     runs.reload()

@@ -1,6 +1,6 @@
 """PPO for the learned layer above the frozen MoCapAct prior.
 
-Same structure as ``ascent.train.ppo`` (parallel CPU workers, every episode recorded with its
+Same structure as ``ariel.train.ppo`` (parallel CPU workers, every episode recorded with its
 policy lineage, resume from the latest checkpoint), adapted to ``ReshapeEnv``:
 
 * each worker batches the frozen prior across its environments,

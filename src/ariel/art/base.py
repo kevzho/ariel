@@ -17,9 +17,9 @@ import bpy
 import numpy as np
 from mathutils import Euler, Quaternion, Vector, noise
 
-import ascent.art.robot as rb
-from ascent.art.environment import _rock_mesh
-from ascent.art.materials import material
+import ariel.art.robot as rb
+from ariel.art.environment import _rock_mesh
+from ariel.art.materials import material
 
 
 @contextmanager

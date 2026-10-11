@@ -288,7 +288,7 @@ def make_earth(texture_path: str, clouds_path: str | None, azimuth: float, eleva
 
 def make_lander(location=(-14.0, 22.0, 0.0), yaw: float = 0.4):
     """A crewed lunar lander parked beyond the pad: foil-wrapped descent stage, white cabin."""
-    import ascent.art.robot as rb
+    import ariel.art.robot as rb
     from .robot import _box, _cyl, _ring, _sphere
     root = bpy.data.objects.new("lander", None)
     root.location = location

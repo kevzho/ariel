@@ -1,4 +1,4 @@
-"""Build the detailed ASCENT humanoid in Blender around the physics geoms.
+"""Build the detailed Ariel humanoid in Blender around the physics geoms.
 
 Each MuJoCo body becomes an Empty; its detailed parts are children modelled in
 that body's frame, wrapping the collision shapes of the same body. Animation
@@ -209,7 +209,7 @@ def build_part(parent, body_name: str, geom: dict) -> None:
         _ring(parent, "foil_gold", c + Vector((0.1265, 0.07, 0.07)), 0.03, 0.0022, axis="x")
         _box(parent, "panel_white", c + Vector((0.127, 0.07, 0.07)), (0.0008, 0.018, 0.0035))
         _box(parent, "accent_orange", c + Vector((0.127, 0.07, 0.078)), (0.0008, 0.011, 0.0025))
-        _text(parent, "ASCENT", c + Vector((0.1255, 0.07, 0.022)), 0.016)
+        _text(parent, "Ariel", c + Vector((0.1255, 0.07, 0.022)), 0.016)
         for k in range(3):
             _box(parent, "accent_orange", c + Vector((0.1255, -0.075, 0.09 - 0.012 * k)),
                  (0.0015, 0.022 - 0.004 * k, 0.0035), bevel=0.001)

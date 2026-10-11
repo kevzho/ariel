@@ -29,7 +29,7 @@ TERM_KEYS = ("progress", "track", "orient", "height", "air_time", "feet_dist", "
              "lateral", "heading",
              "energy", "action_rate", "impact", "self_contact", "joint_limit", "wobble", "slip", "joint_acc",
              "success", "terminal")
-SCHEMA = "ascent.recording.v1"
+SCHEMA = "ariel.recording.v1"
 
 
 @dataclass
