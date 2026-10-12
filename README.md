@@ -10,6 +10,8 @@ stands next to the astronaut. The body changes shape during one continuous attem
 physics simulator decides what each change actually achieves. Every training attempt is recorded
 and can be replayed.
 
+[**DevPost Submission (includes desc. and demo)**](https://devpost.com/software/ariel-i9o8cm#updates)
+
 ## How it works
 
 ```
