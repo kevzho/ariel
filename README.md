@@ -149,12 +149,6 @@ pip install -r requirements.txt
 PYTHONPATH=src python -m unittest discover -s tests
 ```
 
-## Team
-
-- **Guhan:** body, world, RL training and all compute
-- **Kevin:** recording, analysis and the demo narrative
-- **Sparsh:** progression viewer and presentation
-
 Built for HackPHS 2026. Contribution guidelines are in [AGENTS.md](AGENTS.md).
 
 ## Credits
